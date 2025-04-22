@@ -1,1 +1,32 @@
+name: Update manifest
 
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Docker tag to update manifest'
+        required: true
+        type: string
+        
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout infrastructure repo
+        uses: actions/checkout@v3
+        with:
+          repository: DevOpsOrganization2025/infrastructures
+          ref: 'main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update manifest
+        run: |
+          git config --global user.email "dinhquangdaklak2003@gmail.com"
+          git config --global user.name "Continue3010"
+          echo "Update deployment version to ${{ github.event.inputs.tag }}"
+          sed -i 's#continue3010/blog-service:[^[:space:]]*$#continue3010/blog-service:${{ github.event.inputs.tag }}#g' ./deployment/blog-service/blog-deploy.yaml
+          git add ./deployment/blog-service/blog-deploy.yaml
+          git commit -m "Update deployment version to ${{ github.event.inputs.tag }}"
+          git push origin main
+      
