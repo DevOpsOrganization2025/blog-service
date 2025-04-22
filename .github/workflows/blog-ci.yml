@@ -63,5 +63,5 @@ jobs:
     - name: Make mvnw executable
       run: chmod +x ./mvnw
     - name: Run Snyk to check for vulnerabilities
-      run: snyk test  --severity-threshold=high --exit-code=0
+      run: snyk test  --severity-threshold=high || true
 
