@@ -46,9 +46,15 @@ jobs:
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token tự động cung cấp bởi GitHub
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=DevOpsOrganization2025_blog-service
+            -Dsonar.organization=devopsorganization2025
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.ci.autoconfig.disabled=true
     - name: Install Snyk CLI
       run: npm install -g snyk
 
