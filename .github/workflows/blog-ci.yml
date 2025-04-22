@@ -16,7 +16,6 @@ on:
       - "src/main/resources/**"
       - "pom.xml"
       - "Dockerfile"
-
 jobs:
   build:
     runs-on: ubuntu-latest
